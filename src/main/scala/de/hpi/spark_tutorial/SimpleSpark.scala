@@ -37,6 +37,7 @@ object SimpleSpark extends App {
     def squareAndAdd(i: Int): Double = {
       i * 2 + 0.5
     }
+    def sqareAndAdd2(i:Int) = i* 2  + 2
     // A Scala map function defined in-line (without curly brackets)
     def squareAndAdd2(i: Int): Double = (i * 2) + 0.5
     // A Scala map function inferring the return type
@@ -75,6 +76,8 @@ object SimpleSpark extends App {
 
     println("---------------------------------------------------------------------------------------------------------")
 
+
+    /*
     //------------------------------------------------------------------------------------------------------------------
     // Loading data
     //------------------------------------------------------------------------------------------------------------------
@@ -434,13 +437,24 @@ object SimpleSpark extends App {
         .show(200)
     }
 
+    */
+
     //------------------------------------------------------------------------------------------------------------------
     // Inclusion Dependency Discovery (Homework)
     //------------------------------------------------------------------------------------------------------------------
 
-    val inputs = List("region", "nation", "supplier", "customer", "part", "lineitem", "orders")
-      .map(name => s"data/TPCH/tpch_$name.csv")
+    println("----homework---------------------------------------------------------------------------------------------")
 
-    //time {Sindy.discoverINDs(inputs, spark)}
+
+    // val inputs = List("region", "nation", "supplier", "customer", "part", "lineitem", "orders")
+    //   .map(name => s"data/TPCH/tpch_$name.csv")
+
+    val inputs = List("region", "nation")
+        .map(name => s"data/TPCH/tpch_$name.csv")
+
+    Sindy.discoverINDs(inputs, spark)
+
+    // time {Sindy.discoverINDs(inputs, spark)}
+
   }
 }

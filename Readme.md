@@ -9,3 +9,5 @@ To build the project:
 Start the project using the command
     mvn compile & mvn deploy & cp -a /TPCH/. /target/ ; java -jar target/SparkTutorial-1.0.jar
     The position of your TPCH folder might differ
+    or
+    mvn compile ; mvn deploy ; java -jar target/SparkTutorial-1.0.jar --cores 4

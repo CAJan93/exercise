@@ -18,7 +18,7 @@ class Pet(var name:String, var age:Int) {
 }
 
 object SimpleSpark extends App {
-
+  
   override def main(args: Array[String]): Unit = {
 
     // Turn off logging
@@ -29,7 +29,8 @@ object SimpleSpark extends App {
     // Lamda basics (for Scala)
     //------------------------------------------------------------------------------------------------------------------
 
-    //spark uses user defined functions to transform data, lets first look at how functions are defined in scala:
+    //spark uses user defined functions to transform data, lets first
+    // look at how functions are defined in scala:
     val smallListOfNumbers = List(1, 2, 3, 4, 5)
 
     // A Scala map function from int to double
@@ -37,11 +38,13 @@ object SimpleSpark extends App {
       i * 2 + 0.5
     }
     // A Scala map function defined in-line (without curly brackets)
-    def squareAndAdd2(i: Int): Double = i * 2 + 0.5
+    def squareAndAdd2(i: Int): Double = (i * 2) + 0.5
     // A Scala map function inferring the return type
-    def squareAndAdd3(i: Int) = i * 2 + 0.5
+    def squareAndAdd3(i: Int) = (i * 2) + 0.5
     // An anonymous Scala map function assigned to a variable
-    val squareAndAddFunction = (i: Int) => i * 2 + 0.5
+    val squareAndAddFunction: Int => Double = (i) => { i * 2 + 0.5 }
+    // just another test function value
+    val doubleMe: Int => Double = (i) => i * 2
 
     println("---------------------------------------------------------------------------------------------------------")
 

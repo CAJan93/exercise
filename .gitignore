@@ -47,3 +47,11 @@ build.log
 # large files
 /TPCH
 
+# config
+/.vscode
+
+# target
+/target
+
+# scala installation 
+scala-2.11.12.deb

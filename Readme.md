@@ -5,3 +5,7 @@ Things to do after checking out and opening in intellij:
     add Framework support of Maven
 To build the project:
     run mvn package
+
+Start the project using the command
+    mvn compile & mvn deploy & cp -a /TPCH/. /target/ ; java -jar target/SparkTutorial-1.0.jar
+    The position of your TPCH folder might differ

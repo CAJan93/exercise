@@ -46,7 +46,7 @@ object SimpleSpark extends App {
     val squareAndAddFunction: Int => Double = (i) => { i * 2 + 0.5 }
     // just another test function value
     val doubleMe: Int => Double = (i) => i * 2
-
+/*
     println("---------------------------------------------------------------------------------------------------------")
 
     // Different variants to apply the same function
@@ -56,7 +56,7 @@ object SimpleSpark extends App {
     println(smallListOfNumbers.map(squareAndAddFunction))
     println(smallListOfNumbers.map(i => i * 2 + 0.5)) // anonymous function; compiler can infers types
     println(smallListOfNumbers.map(_ * 2 + 0.5)) // syntactic sugar: '_' maps to first (second, third, ...) parameter
-
+*/
     //------------------------------------------------------------------------------------------------------------------
     // Setting up a Spark Session
     //------------------------------------------------------------------------------------------------------------------

@@ -28,7 +28,7 @@ object Sindy {
           // .as[(Int, String, Int, String)]
       */
 
-
+/*
       val region = spark
         .read
         .option("inferSchema", "false")
@@ -51,34 +51,67 @@ object Sindy {
 
       nation.show(10)
       region.show(10)
-
-      val nation2 = spark
-        .read
-        .option("inferSchema", "true")
-        .option("header", "true")
-        .option("quote", "\"")
-        .option("delimiter", ";")
-        .csv(inputs(1))
-
-      println(nation2)
+      */
 
 
-       // val tmp : Int = nation2
 
-      // val scema = nation.printSchema()
+    val region = spark
+      .read
+      .option("inferSchema", "true")
+      .option("header", "true")
+      .option("quote", "\"")
+      .option("delimiter", ";")
+      .csv(inputs(0))
 
-      val scema = nation2.schema.fieldNames
+    println(region)
 
-    val result3 : RDD[(String, Set[String])] = nation2
+    val nation = spark
+      .read
+      .option("inferSchema", "true")
+      .option("header", "true")
+      .option("quote", "\"")
+      .option("delimiter", ";")
+      .csv(inputs(1))
+
+    println(nation)
+
+
+
+    val scema_region = region.schema.fieldNames
+
+    val result0 : RDD[(String, Set[String])] = region
       .flatMap(row => row.toSeq.view.zipWithIndex.foldLeft(Seq[(String, Set[String])]())((a, b) => {
-        a :+ (b._1.toString(), Set(scema(b._2)))
+        a :+ (b._1.toString(), Set(scema_region(b._2)))
       }))
       .rdd
-      //.reduceByKey(_ ++ _)
+      .reduceByKey(_ ++ _)
 
-    result3.foreach(println)
+    // result0.foreach(println)
+
+    val scema_nation = nation.schema.fieldNames
+
+    val result : RDD[(String, Set[String])] = nation
+      .flatMap(row => row.toSeq.view.zipWithIndex.foldLeft(Seq[(String, Set[String])]())((a, b) => {
+        a :+ (b._1.toString(), Set(scema_nation(b._2)))
+      }))
+      .rdd
+      .reduceByKey(_ ++ _)
+
+    // result.foreach(println)
 
 
+    println("----------------------------------------------------------------------------------------")
+
+    val result1 : RDD[(String, Set[String])] = result0
+      .union(result)
+        .reduceByKey(_ ++ _)
+
+    result1.foreach(println)
+
+
+
+
+/*
 
     val result2 : RDD[(String, Set[String])] = nation2
       .flatMap(row => row.toString().filterNot("[]".toSet).split(",").view.zipWithIndex.foldLeft(Seq[(String, Set[String])]())((a, b) => {
@@ -100,7 +133,7 @@ object Sindy {
 
     // result.foreach(println)
 
-
+*/
     /*
       // works, but hard coded
       val result  : RDD[(String, Set[String])] = nation

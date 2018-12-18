@@ -452,7 +452,7 @@ object SimpleSpark extends App {
     val inputs = List("region", "nation")
         .map(name => s"data/TPCH/tpch_$name.csv")
 
-    Sindy.discoverINDs(inputs, spark)
+    Sindy.discoverINDs(List(inputs(0), inputs(1)), spark)
 
     // time {Sindy.discoverINDs(inputs, spark)}
 

@@ -1,7 +1,7 @@
 package de.hpi.spark_tutorial
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{Dataset, RelationalGroupedDataset, Row, SparkSession}
+import org.apache.spark.sql.{Dataset, RelationalGroupedDataset, Row, SparkSession, DataFrame}
 
 object Sindy {
 
@@ -12,6 +12,16 @@ object Sindy {
 
 
       import spark.implicits._
+
+      val resources = inputs
+          .foldLeft(Set[DataFrame]())((acc, resource) => {
+            acc + spark.read
+              .option("inferSchema", "true")
+              .option("header", "true")
+              .option("quote", "\"")
+              .option("delimiter", ";")
+              .csv(resource)
+          })
 
 
 
@@ -34,6 +44,12 @@ object Sindy {
       .csv(inputs(1))
 
     nation.show()
+
+    val x : Int = nation
+
+
+    val scemas = resources
+      .foreach
 
 
     val scema_region = region.schema.fieldNames

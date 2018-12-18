@@ -63,7 +63,7 @@ object Sindy {
       .option("delimiter", ";")
       .csv(inputs(0))
 
-    println(region)
+    region.show()
 
     val nation = spark
       .read
@@ -73,8 +73,7 @@ object Sindy {
       .option("delimiter", ";")
       .csv(inputs(1))
 
-    println(nation)
-
+    nation.show()
 
 
     val scema_region = region.schema.fieldNames
@@ -96,6 +95,34 @@ object Sindy {
       }))
       .rdd
       .reduceByKey(_ ++ _)
+        .union(result0)
+
+    // result.foreach(println)
+
+    println("----------------------------------------------------------------------")
+
+    var tmp : RDD[Set[String]] = result
+        .groupByKey()
+        .map(row => row._2.foldLeft(Set[String]())((acc, b) => {
+          acc ++ b
+      }))
+        .distinct()
+
+    tmp.foreach(println)
+
+    /*
+      val tmp : RDD[(Set[String])] = result
+          .map(k_v => (k_v._2, k_v._1))
+          .reduceByKey(_ ++ _)
+          .map(k_v => k_v._1)
+
+      tmp.foreach(println)
+      */
+
+        //.fold(Set[String]())((acc, row) => {
+    //  acc :+ row._2
+    //   })
+
 
     // result.foreach(println)
 
@@ -106,7 +133,7 @@ object Sindy {
       .union(result)
         .reduceByKey(_ ++ _)
 
-    result1.foreach(println)
+   // result1.foreach(println)
 
 
 
